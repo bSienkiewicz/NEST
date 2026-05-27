@@ -15,7 +15,7 @@ export function getPrefixFromRaw(rawTitle) {
   const mpSegment = beforeQuote.match(/(?:^|_)MP_([A-Za-z0-9]+)_/);
   if (mpSegment) return mpSegment[1].toUpperCase();
   // Prefix = everything before the first dot (e.g. hermes, mpm4dm01, hm, cycleon)
-  const hostSegment = rawTitle.match(/^([a-zA-Z0-9]+)\./);
+  const hostSegment = rawTitle.match(/^([a-zA-Z0-9_-]+)\./);
   if (hostSegment) {
     const seg = hostSegment[1];
     return /[0-9]/.test(seg) ? seg.toUpperCase() : seg.charAt(0).toUpperCase() + seg.slice(1).toLowerCase();
