@@ -15,10 +15,17 @@ export function getPrefixFromRaw(rawTitle) {
   const mpSegment = beforeQuote.match(/(?:^|_)MP_([A-Za-z0-9]+)_/);
   if (mpSegment) return mpSegment[1].toUpperCase();
   // Prefix = everything before the first dot (e.g. hermes, mpm4dm01, hm, cycleon)
-  const hostSegment = rawTitle.match(/^([a-zA-Z0-9]+)\./);
+  const hostSegment = rawTitle.match(/^([a-zA-Z0-9_-]+)\./);
   if (hostSegment) {
     const seg = hostSegment[1];
-    return /[0-9]/.test(seg) ? seg.toUpperCase() : seg.charAt(0).toUpperCase() + seg.slice(1).toLowerCase();
+    if (/[0-9]/.test(seg)) return seg.toUpperCase();
+    // Turn hyphen/underscore separated hostnames into human-friendly words
+    // e.g. "louis-vuitton" -> "Louis Vuitton"
+    return seg
+      .split(/[-_]+/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+      .join(" ");
   }
   if (/^Metric\s+query/i.test(rawTitle.trim())) return "DM";
   if (/^Transaction\s+query/i.test(rawTitle.trim())) return "DM ALL";

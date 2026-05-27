@@ -99,6 +99,16 @@ const tests = [
     },
   },
   {
+    name: "MPM Allocation (Error Rate) (Louis Vuitton)",
+    rawTitle:
+      "louis-vuitton.mpm.metapack.net_BlackBox query result is > 5.0 for 5 minutes on '***CRITICAL*** - SHD03 - CH Paket Post - Increased Error Rate'",
+    expected: {
+      alertTypeName: "MPM Allocation (Error Rate)",
+      type: "Allocation",
+      subjectContains: "Louis Vuitton|PD|CH Paket Post - Increased Error Rate",
+    },
+  },
+  {
     name: "DM Database Errors",
     rawTitle:
       "PRD DM-UX-DM3 EU-WEST-1 query result is > 0.0 on '***CRITICAL*** - DM02 - DM Database errors'",
